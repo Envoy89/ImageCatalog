@@ -8,14 +8,17 @@
 		<version>2.5.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.theruzil</groupId>
 	<artifactId>image_catalog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>image_catalog</name>
 	<description>Image catalog</description>
+
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
