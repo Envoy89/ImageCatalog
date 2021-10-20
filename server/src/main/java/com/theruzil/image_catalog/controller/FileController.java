@@ -18,12 +18,17 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @PostMapping("/createFile")
+    @PostMapping("/file")
     public FileEntity createFile(@RequestParam("file") MultipartFile file) {
         return fileService.saveFile(file);
     }
 
-    @GetMapping("/files/{id}")
+    @GetMapping("/file")
+    public String getFiles() {
+        return "test";
+    }
+
+    @GetMapping("/file/{id}")
     @ResponseBody
     public ResponseEntity<Resource> getFileById(@PathVariable int id) {
         Resource file =  fileService.getFileById(id);
