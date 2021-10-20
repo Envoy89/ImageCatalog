@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 @Service
 public class StorageServiceImpl implements StorageService {
@@ -39,12 +40,12 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public String save(MultipartFile file) {
         try {
-            Path path = this.root.resolve(file.getOriginalFilename());
+            Path path = this.root.resolve(Objects.requireNonNull(file.getOriginalFilename()));
 
             File newFile = new File(path.toUri().getPath());
             try (
-                    FileOutputStream outputStream = new FileOutputStream(newFile, false);
-                    InputStream inputStream = file.getInputStream()
+                FileOutputStream outputStream = new FileOutputStream(newFile, false);
+                InputStream inputStream = file.getInputStream()
             ) {
                 int read;
                 byte[] bytes = new byte[DEFAULT_BUFFER_SIZE];

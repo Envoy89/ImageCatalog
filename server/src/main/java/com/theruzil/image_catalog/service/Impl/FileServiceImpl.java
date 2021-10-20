@@ -1,6 +1,7 @@
 package com.theruzil.image_catalog.service.Impl;
 
 import com.theruzil.image_catalog.entity.FileEntity;
+import com.theruzil.image_catalog.exception.AppException;
 import com.theruzil.image_catalog.repository.FileRepository;
 import com.theruzil.image_catalog.service.FileService;
 import com.theruzil.image_catalog.service.StorageService;
@@ -11,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileServiceImpl implements FileService {
-    private FileRepository fileRepository;
-    private StorageService storageService;
+    private final FileRepository fileRepository;
+    private final StorageService storageService;
 
     @Autowired
     public FileServiceImpl(
@@ -37,6 +38,11 @@ public class FileServiceImpl implements FileService {
     @Override
     public Resource getFileById(int id) {
         FileEntity file = fileRepository.findById(id).orElse(null);
+
+        if (file == null) {
+            throw new AppException("File not exist");
+        }
+
         return storageService.load(file.getPath());
     }
 }
