@@ -1,18 +1,18 @@
 package com.theruzil.image_catalog.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "TagTable")
+@Table(name = "tag_table")
 public class TagEntity {
     @Id
     @GeneratedValue

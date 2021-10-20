@@ -2,6 +2,7 @@ package com.theruzil.image_catalog.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,10 +10,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "FileTable")
+@Table(name = "file_table")
 public class FileEntity {
     @Id
     @GeneratedValue
@@ -24,7 +25,7 @@ public class FileEntity {
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "File_Tag_Table",
+            name = "file_tag_table",
             joinColumns = { @JoinColumn(name = "file_id")},
             inverseJoinColumns = { @JoinColumn(name = "tag_id")}
     )
