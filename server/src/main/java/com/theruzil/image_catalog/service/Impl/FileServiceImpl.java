@@ -7,8 +7,11 @@ import com.theruzil.image_catalog.service.FileService;
 import com.theruzil.image_catalog.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -44,5 +47,29 @@ public class FileServiceImpl implements FileService {
         }
 
         return storageService.load(file.getPath());
+    }
+
+    @Override
+    public List<FileEntity> getFiles(int pageNumber, int pageSize) {
+        return fileRepository.findAll(PageRequest.of(pageNumber, pageSize)).getContent();
+    }
+
+    @Override
+    public FileEntity updateFile(FileEntity file) {
+        FileEntity newFile = fileRepository.findById(file.getId()).orElse(null);
+
+        if (newFile == null) {
+            throw new AppException("File not exist");
+        }
+
+        newFile.setName(file.getName());
+        newFile.setTags(file.getTags());
+
+        return fileRepository.save(newFile);
+    }
+
+    @Override
+    public void deleteFile(int id) {
+        fileRepository.deleteById(id);
     }
 }
